@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "universal-standard-app": {
+      "hosting": {
+        "Universal-Standard-App": [
+          "universal-standard-app"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "universal-standard-app"
+  }
+}
