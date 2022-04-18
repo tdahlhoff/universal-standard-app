@@ -6,21 +6,20 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LoginComponent } from './components/login/login.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { MatCardModule } from '@angular/material/card';
-import { AuthService } from './services/auth.service';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { AuthService } from './auth/auth.service';
+import { AuthModule } from './auth/auth.module';
+import { LayoutComponent } from './components/layout/layout.component';
+import { HomeComponent } from './components/home/home.component';
 import { MatButtonModule } from '@angular/material/button';
-import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
     declarations: [
         AppComponent,
-        LoginComponent,
-        PageNotFoundComponent
+        PageNotFoundComponent,
+        LayoutComponent,
+        HomeComponent
     ],
     imports: [
         BrowserModule,
@@ -28,10 +27,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         AngularFireAuthModule,
         BrowserAnimationsModule,
         AppRoutingModule,
-        FlexLayoutModule,
-        MatCardModule,
-        MatFormFieldModule,
-        MatInputModule,
+        AuthModule,
         MatButtonModule
     ],
     providers: [

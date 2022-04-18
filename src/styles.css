@@ -19,3 +19,8 @@ body {
 .mat-form-field {
     width: 100%;
 }
+
+.mat-card.centered {
+    max-width: 480px;
+    margin: auto;
+}
