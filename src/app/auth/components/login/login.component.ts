@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.authService.loginSuccessFull.pipe(
+        /*this.authService.loginSuccessFul.pipe(
             untilDestroyed(this)
         ).subscribe({
             next: value => {
@@ -29,22 +29,24 @@ export class LoginComponent implements OnInit {
                     this.redirect();
                 }
             }
-        });
+        });*/
     }
 
     signIn() {
         if (this.loginForm.valid) {
             this.authService.signIn(this.loginForm.value.email, this.loginForm.value.password).subscribe({
-                next: value => console.warn('next - ' + value),
-                error: err => console.error('error - ' + err)
+                next: value => console.warn('next', value),
+                error: err => console.error('error', err),
+                complete: () => this.redirect()
             });
         }
     }
 
     signInWithGoogle() {
         this.authService.signInWithGoogle().subscribe({
-            next: value => console.warn('next - ' + value),
-            error: err => console.error('error - ' + err)
+            next: value => console.warn('next', value),
+            error: err => console.error('error', err),
+            complete: () => this.redirect()
         });
     }
 

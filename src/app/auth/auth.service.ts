@@ -8,22 +8,19 @@ import { BehaviorSubject, from, Observable, tap } from 'rxjs';
 })
 export class AuthService {
 
-    public loginSuccessFull = new BehaviorSubject(false);
+    public loginSuccessFul = new BehaviorSubject(false);
     private _lastRoute: string | null = null;
     private _user: firebase.User | null = null;
 
     constructor(public angularFireAuth: AngularFireAuth) {
         this.angularFireAuth.authState.subscribe((user) => {
-            console.warn(user);
             if (user) {
                 this._user = user;
-                localStorage.setItem('user', JSON.stringify(this._user));
-                this.loginSuccessFull.next(true);
+                this.loginSuccessFul.next(true);
             } else {
                 this.resetUser();
             }
         });
-        this._user = JSON.parse(localStorage.getItem('user')!);
     }
 
     get lastRoute() {
@@ -32,6 +29,11 @@ export class AuthService {
 
     get user() {
         return this._user;
+    }
+
+    init(): Promise<any> {
+        console.warn(this);
+        return new Promise<any>(resolve => resolve(true));
     }
 
     confirmPasswordReset(code: string, password: string): Observable<any> {
@@ -61,7 +63,7 @@ export class AuthService {
     }
 
     isAuthenticated() {
-        return this._user !== null && this._user.emailVerified;
+        return this._user !== null;// && this._user.emailVerified;
     }
 
     setLastRoute(route: string) {
@@ -70,6 +72,5 @@ export class AuthService {
 
     private resetUser() {
         this._user = null;
-        localStorage.setItem('user', 'null');
     }
 }

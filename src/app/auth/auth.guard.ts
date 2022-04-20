@@ -7,28 +7,39 @@ import {
     RouterStateSnapshot,
     UrlTree
 } from '@angular/router';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 
 @Injectable({
     providedIn: 'root'
 })
-export class AuthGuard implements CanActivateChild {
+export class AuthGuard implements CanActivate {
     constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) {
     }
 
-    canActivateChild(
-        route: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-        if (this.authService.isAuthenticated()) {
-            return true;
-        }
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+        return this.authService.angularFireAuth.user.pipe(
+            map(user => {
+                if (user) {
+                    return true;
+                }
+                if (state.url && !state.url.includes('auth')) {
+                    console.warn(state.url);
+                    this.authService.setLastRoute(state.url);
+                }
+                // todo: hier ist die route fest hinterlegt obwohl das "auth" eigentlich aus der App selber kommt und
+                //  dem AuthModule nicht bekannt ist, dass es als prefix das auth vor den routen hat
+                this.router.navigate(['/auth/login']);
+                return false;
+            })
+        );
+        /*
         if (location.pathname && !location.pathname.includes('auth')) {
-            console.warn(location.pathname);
-            this.authService.setLastRoute(location.pathname);
+            console.warn(state.url);
+            this.authService.setLastRoute(state.url);
         }
         this.router.navigate(['/auth/login']);
-        return false;
+        return false;*/
     }
 
 }

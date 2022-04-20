@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AuthRoutingModule } from './auth-routing.module';
@@ -12,6 +12,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
+import { AuthService } from './auth.service';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
 
 @NgModule({
@@ -23,6 +25,7 @@ import { LoginComponent } from './components/login/login.component';
     ],
     imports: [
         CommonModule,
+        AngularFireAuthModule,
         AuthRoutingModule,
         FlexLayoutModule,
         MatCardModule,
@@ -30,6 +33,15 @@ import { LoginComponent } from './components/login/login.component';
         MatInputModule,
         MatButtonModule,
         ReactiveFormsModule
+    ],
+    providers: [
+        AuthService/*,
+        {
+            provide: APP_INITIALIZER,
+            useFactory: (service: AuthService) => function() { return service.init(); },
+            deps: [AuthService],
+            multi: true
+        }*/
     ]
 })
 export class AuthModule {
