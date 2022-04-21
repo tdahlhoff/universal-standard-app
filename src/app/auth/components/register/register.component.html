@@ -2,11 +2,13 @@
     <mat-card-title i18n>Registrieren</mat-card-title>
     <mat-card-content>
         <p i18n>Hier kannst du einen neuen Account registrieren.</p>
-        <form [formGroup]="registerForm" (submit)="register()">
+        <form [formGroup]="form" (submit)="register()">
             <div>
                 <mat-form-field appearance="standard">
                     <mat-label i18n>E-Mail</mat-label>
                     <input matInput formControlName="email">
+                    <mat-error *ngIf="form.get('email')?.invalid">
+                        {{getErrorMessage('email')}}</mat-error>
                 </mat-form-field>
             </div>
             <ng-container formGroupName="password">
@@ -14,24 +16,28 @@
                     <mat-form-field appearance="standard">
                         <mat-label i18n>Passwort</mat-label>
                         <input matInput type="password" formControlName="password1">
+                        <mat-error *ngIf="form.get('password.password1')?.invalid">
+                            {{getErrorMessage('password.password1')}}</mat-error>
                     </mat-form-field>
                 </div>
                 <div>
                     <mat-form-field appearance="standard">
                         <mat-label i18n>Passwort wiederholen</mat-label>
                         <input matInput type="password" formControlName="password2">
+                        <mat-error *ngIf="form.get('password.password2')?.invalid">
+                            {{getErrorMessage('password.password2')}}</mat-error>
                     </mat-form-field>
                 </div>
             </ng-container>
-            <div fxLayout="row" fxLayoutAlign="space-between" fxLayout.xs="column" fxLayoutGap.xs="16px">
-                <button type="submit" [disabled]="registerForm.invalid" mat-stroked-button i18n>
+            <mat-form-actions>
+                <button type="submit" [disabled]="form.invalid" mat-stroked-button i18n>
                     Registrieren
                 </button>
                 <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign.gt-xs="end center">
                     <a routerLink="../login" i18n-title title="Mit vorhandenem Accounnt einloggen" i18n>
                         Login</a>
                 </div>
-            </div>
+            </mat-form-actions>
         </form>
     </mat-card-content>
 </mat-card>

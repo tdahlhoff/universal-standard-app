@@ -1,39 +1,36 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../auth.service';
+import { BaseFormComponent } from '../../../components/base-form/base-form.component';
 
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent extends BaseFormComponent implements OnInit {
 
-    registerForm = new FormGroup({
+    form = new FormGroup({
         email: new FormControl('', [Validators.required, Validators.email]),
         password: new FormGroup({
             password1: new FormControl('', [Validators.required]),
             password2: new FormControl('', [Validators.required])
-        }, [RegisterComponent.passwordsMatchValidator])
+        }, [BaseFormComponent.valuesMatchValidator('password1', 'password2')])
     });
 
+    override valueMismatchMessage = $localize `Das eingegebene Passwort stimmt nicht überein.`;
+
     constructor(private authService: AuthService) {
+        super();
     }
 
     ngOnInit(): void {
     }
 
-    static passwordsMatchValidator(control: AbstractControl) {
-        if (control.get('password1')?.value !== control.get('password2')?.value) {
-            return {invalid: true};
-        }
-        return null;
-    }
-
     register() {
-        if (this.registerForm.valid) {
+        if (this.form.valid) {
             this.authService.register(
-                this.registerForm.value.email, this.registerForm.get(['password', 'password1'])?.value
+                this.form.value.email, this.form.get(['password', 'password1'])?.value
             ).subscribe({
                 next: value => alert('next - ' + value),
                 error: err => alert('error - ' + err),

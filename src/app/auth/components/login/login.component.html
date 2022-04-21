@@ -3,28 +3,32 @@
     <mat-card-content fxLayout="column" fxLayoutGap="32px">
         <div>
             <p i18n>Hier kannst du dich mit E-Mail und Passwort anmelden.</p>
-            <form [formGroup]="loginForm" (submit)="signIn()">
+            <form [formGroup]="form" (submit)="signIn()">
                 <div>
                     <mat-form-field appearance="standard">
                         <mat-label i18n>E-Mail</mat-label>
                         <input matInput formControlName="email">
+                        <mat-error *ngIf="form.get('email')?.invalid">
+                            {{getErrorMessage('email')}}</mat-error>
                     </mat-form-field>
                 </div>
                 <div>
                     <mat-form-field appearance="standard">
                         <mat-label i18n>Passwort</mat-label>
                         <input matInput type="password" formControlName="password">
+                        <mat-error *ngIf="form.get('password')?.invalid">
+                            {{getErrorMessage('password')}}</mat-error>
                     </mat-form-field>
                 </div>
-                <div fxLayout="row" fxLayoutAlign="space-between" fxLayout.xs="column" fxLayoutGap.xs="16px">
-                    <button type="submit" [disabled]="loginForm.invalid" mat-stroked-button i18n>Login</button>
+                <mat-form-actions>
+                    <button type="submit" [disabled]="form.invalid" mat-stroked-button i18n>Login</button>
                     <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign.gt-xs="end center">
                         <a routerLink="../forgot-password" i18n-title title="Passwort zurück setzen" i18n>
                             Passwort vergessen</a>
                         <a routerLink="../register" i18n-title title="Einen neuen Account registrieren" i18n>
                             Registrieren</a>
                     </div>
-                </div>
+                </mat-form-actions>
             </form>
         </div>
         <div>

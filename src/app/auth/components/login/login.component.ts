@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { UntilDestroy } from '@ngneat/until-destroy';
+import { BaseFormComponent } from '../../../components/base-form/base-form.component';
 
 @UntilDestroy()
 @Component({
@@ -10,14 +11,15 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent extends BaseFormComponent implements OnInit {
 
-    loginForm = new FormGroup({
+    form = new FormGroup({
         email: new FormControl('', [Validators.required]),
         password: new FormControl('', [Validators.required])
     });
 
     constructor(public authService: AuthService, private router: Router) {
+        super();
     }
 
     ngOnInit(): void {
@@ -33,8 +35,8 @@ export class LoginComponent implements OnInit {
     }
 
     signIn() {
-        if (this.loginForm.valid) {
-            this.authService.signIn(this.loginForm.value.email, this.loginForm.value.password).subscribe({
+        if (this.form.valid) {
+            this.authService.signIn(this.form.value.email, this.form.value.password).subscribe({
                 next: value => console.warn('next', value),
                 error: err => console.error('error', err),
                 complete: () => this.redirect()
