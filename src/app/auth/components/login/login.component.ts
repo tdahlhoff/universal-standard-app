@@ -3,7 +3,7 @@ import { AuthService } from '../../auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UntilDestroy } from '@ngneat/until-destroy';
-import { BaseFormComponent } from '../../../components/base-form/base-form.component';
+import { BaseFormComponent } from '../../../shared/components/base-form-component/base-form-component';
 
 @UntilDestroy()
 @Component({

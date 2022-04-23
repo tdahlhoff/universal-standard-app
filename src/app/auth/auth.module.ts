@@ -11,6 +11,7 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthService } from './auth.service';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { MaterialUiModule } from '../material-ui/material-ui.module';
+import { AwaitingEmailConfirmationComponent } from './components/awaiting-email-confirmation/awaiting-email-confirmation.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { MaterialUiModule } from '../material-ui/material-ui.module';
         AuthComponent,
         LoginComponent,
         RegisterComponent,
-        ForgotPasswordComponent
+        ForgotPasswordComponent,
+        AwaitingEmailConfirmationComponent
     ],
     imports: [
         CommonModule,

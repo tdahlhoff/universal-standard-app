@@ -1,4 +1,4 @@
-<mat-card class="centered">
+<mat-card class="centered" [ngClass.xs]="'card-zero'">
     <mat-card-title i18n>Einloggen</mat-card-title>
     <mat-card-content fxLayout="column" fxLayoutGap="32px">
         <div>
@@ -21,7 +21,7 @@
                     </mat-form-field>
                 </div>
                 <mat-form-actions>
-                    <button type="submit" [disabled]="form.invalid" mat-stroked-button i18n>Login</button>
+                    <button type="submit" [disabled]="form.invalid" mat-flat-button color="primary" i18n>Login</button>
                     <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign.gt-xs="end center">
                         <a routerLink="../forgot-password" i18n-title title="Passwort zurück setzen" i18n>
                             Passwort vergessen</a>
@@ -33,7 +33,7 @@
         </div>
         <div>
             <p>Stattdessen mit Google anmelden.</p>
-            <button mat-stroked-button (click)="signInWithGoogle()" i18n>Anmelden mit Google</button>
+            <button mat-flat-button color="primary" (click)="signInWithGoogle()" i18n>Anmelden mit Google</button>
         </div>
     </mat-card-content>
 </mat-card>

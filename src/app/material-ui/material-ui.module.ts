@@ -6,22 +6,30 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatFormFieldInfoComponent } from './components/mat-form-field-info/mat-form-field-info.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({
     declarations: [
-        MatFormActionsComponent
+        MatFormActionsComponent,
+        MatFormFieldInfoComponent
     ],
     imports: [
         CommonModule,
-        FlexLayoutModule
+        FlexLayoutModule,
+        MatIconModule
     ],
     exports: [
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,
         MatButtonModule,
-        MatFormActionsComponent
+        MatFormActionsComponent,
+        MatFormFieldInfoComponent,
+        MatIconModule,
+        MatSnackBarModule
     ]
 })
 export class MaterialUiModule {

@@ -1,12 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-    ActivatedRoute,
-    ActivatedRouteSnapshot,
-    CanActivate, CanActivateChild,
-    Router,
-    RouterStateSnapshot,
-    UrlTree
-} from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { map, Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 
@@ -21,6 +14,10 @@ export class AuthGuard implements CanActivate {
         return this.authService.angularFireAuth.user.pipe(
             map(user => {
                 if (user) {
+                    if (!user.emailVerified) {
+                        this.router.navigate(['/auth/awaiting-email-confirmation']);
+                        return false;
+                    }
                     return true;
                 }
                 if (state.url && !state.url.includes('auth')) {

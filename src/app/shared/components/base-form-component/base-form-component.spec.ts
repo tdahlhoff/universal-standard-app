@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BaseFormComponent } from './base-form.component';
+import { BaseFormComponent } from './base-form-component';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
