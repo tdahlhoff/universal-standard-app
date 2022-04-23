@@ -32,10 +32,14 @@ body {
     max-width: 600px;
 }
 
+.mat-drawer-container {
+    background: none;
+}
+
 button {
     text-transform: uppercase;
 }
 
-.mat-drawer-container {
-    background: none;
+a {
+    font-weight: 500;
 }
