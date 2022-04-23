@@ -1,0 +1,40 @@
+.background-container {
+    background-color: #fafafa;
+    position: absolute;
+    left:0;
+    top:0;
+    right:0;
+    bottom:0;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 980px;
+    background-color: #fff;
+}
+
+.is-mobile .toolbar {
+    position: fixed;
+    z-index: 2;
+}
+
+.sidenav-container {
+
+}
+
+.is-mobile .sidenav-container {
+    margin-top: 56px;
+}
+
+mat-sidenav {
+    width: 200px;
+}
+
+.main-content > div {
+    padding: 16px;
+}

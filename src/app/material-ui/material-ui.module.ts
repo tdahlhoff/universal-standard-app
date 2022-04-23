@@ -9,6 +9,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatFormFieldInfoComponent } from './components/mat-form-field-info/mat-form-field-info.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatListModule } from '@angular/material/list';
 
 
 @NgModule({
@@ -29,7 +31,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
         MatFormActionsComponent,
         MatFormFieldInfoComponent,
         MatIconModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatToolbarModule,
+        MatListModule
     ]
 })
 export class MaterialUiModule {

@@ -16,8 +16,15 @@ const routes: Routes = [
         component: LayoutComponent,
         canActivate: [AuthGuard],
         children: [
-            {path: '', redirectTo: 'home', pathMatch: 'full'},
-            {path: 'home', component: HomeComponent}
+            {
+                path: '',
+                redirectTo: 'home',
+                pathMatch: 'full'
+            },
+            {
+                path: 'home',
+                component: HomeComponent
+            }
         ]
     },
     {

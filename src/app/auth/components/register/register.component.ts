@@ -5,6 +5,7 @@ import { BaseFormComponent } from '../../../shared/components/base-form-componen
 import { passwordStrengthValidator, valuesMatchValidator } from '../../../shared/validators/validators';
 import firebase from 'firebase/compat';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Router } from '@angular/router';
 import FirebaseError = firebase.FirebaseError;
 import UserCredential = firebase.auth.UserCredential;
 
@@ -23,12 +24,13 @@ export class RegisterComponent extends BaseFormComponent implements OnInit {
         }, [valuesMatchValidator('password1', 'password2')])
     });
 
-    constructor(private authService: AuthService, private snackBar: MatSnackBar) {
+    constructor(private authService: AuthService, private snackBar: MatSnackBar, private router: Router,
+        private route: ActivatedRoute) {
         super();
     }
 
     ngOnInit(): void {
-        this.overwriteMessages({value_mismatch: $localize `Das eingegebene Passwort stimmt nicht überein.`});
+        this.overwriteMessages({ value_mismatch: $localize`Das eingegebene Passwort stimmt nicht überein.` });
     }
 
     register() {
@@ -37,9 +39,10 @@ export class RegisterComponent extends BaseFormComponent implements OnInit {
                 this.form.value.email, this.form.get(['password', 'password1'])?.value
             ).subscribe({
                 next: (userCredential: UserCredential) => {
-                    console.warn(userCredential);
                     if (userCredential.user) {
-                        userCredential.user.sendEmailVerification();
+                        userCredential.user.sendEmailVerification().then(() => {
+                            this.router.navigate(['..', 'awaiting-email-confirmation'], { relativeTo: this.route });
+                        });
                     }
                 },
                 error: (error: FirebaseError) => {
@@ -50,8 +53,7 @@ export class RegisterComponent extends BaseFormComponent implements OnInit {
                         message = $localize`Bei der Registrierung ist ein Fehler aufgetreten.`;
                     }
                     this.snackBar.open(message);
-                },
-                complete: () => alert('Heureka!')
+                }
             });
         }
     }
