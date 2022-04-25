@@ -23,15 +23,6 @@ export class LoginComponent extends BaseFormComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        /*this.authService.loginSuccessFul.pipe(
-            untilDestroyed(this)
-        ).subscribe({
-            next: value => {
-                if (value) {
-                    this.redirect();
-                }
-            }
-        });*/
     }
 
     signIn() {
