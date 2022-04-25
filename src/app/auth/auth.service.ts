@@ -1,38 +1,25 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
-import { BehaviorSubject, from, Observable, tap } from 'rxjs';
+import { from, Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
 
-    public loginSuccessFul = new BehaviorSubject(false);
     private _lastRoute: string | null = null;
-    private _user: firebase.User | null = null;
+    user: Observable<firebase.User | null>;
 
     constructor(public angularFireAuth: AngularFireAuth) {
-        this.angularFireAuth.authState.subscribe((user) => {
-            if (user) {
-                this._user = user;
-                this.loginSuccessFul.next(true);
-            } else {
-                this.resetUser();
-            }
-        });
+        this.user = angularFireAuth.authState;
     }
 
     get lastRoute() {
         return this._lastRoute;
     }
 
-    get user() {
-        return this._user;
-    }
-
     init(): Promise<any> {
-        console.warn(this);
         return new Promise<any>(resolve => resolve(true));
     }
 
@@ -57,20 +44,10 @@ export class AuthService {
     }
 
     signOut(): Observable<void> {
-        return from(this.angularFireAuth.signOut()).pipe(
-            tap(() => this.resetUser())
-        );
-    }
-
-    isAuthenticated() {
-        return this._user !== null;// && this._user.emailVerified;
+        return from(this.angularFireAuth.signOut());
     }
 
     setLastRoute(route: string) {
         this._lastRoute = route;
-    }
-
-    private resetUser() {
-        this._user = null;
     }
 }

@@ -4,7 +4,7 @@
             <button mat-icon-button (click)="sideNav.toggle()" ><mat-icon>menu</mat-icon></button>
             <h1 i18n>Universal Standard App</h1>
             <div fxFlex="1 1 auto"></div>
-            <button mat-icon-button><mat-icon>account_circle</mat-icon></button>
+            <button mat-icon-button *ngIf="isAuthenticated"><mat-icon>account_circle</mat-icon></button>
         </mat-toolbar>
         <mat-sidenav-container class="sidenav-container" fxFlex fxFlex.xs="1 0 auto">
             <mat-sidenav #sideNav [mode]="isMobile ? 'over' : 'side'" [fixedInViewport]="isMobile" fixedTopGap="56">

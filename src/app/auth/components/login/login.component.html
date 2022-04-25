@@ -21,7 +21,7 @@
                     </mat-form-field>
                 </div>
                 <mat-form-actions>
-                    <button type="submit" [disabled]="form.invalid" mat-flat-button color="primary" i18n>Login</button>
+                    <button type="submit" [disabled]="form.invalid" mat-raised-button color="primary" i18n>Login</button>
                     <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign.gt-xs="end center">
                         <a routerLink="../reset-password" i18n-title title="Passwort zurück setzen" i18n>
                             Passwort vergessen</a>
@@ -33,7 +33,7 @@
         </div>
         <div>
             <p>Stattdessen mit Google anmelden.</p>
-            <button mat-flat-button color="primary" (click)="signInWithGoogle()" i18n>Anmelden mit Google</button>
+            <button mat-raised-button color="primary" (click)="signInWithGoogle()" i18n>Anmelden mit Google</button>
         </div>
     </mat-card-content>
 </mat-card>
