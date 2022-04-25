@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { map, Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 
@@ -7,7 +7,7 @@ import { AuthService } from './auth.service';
     providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-    constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) {
+    constructor(private authService: AuthService, private router: Router) {
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
@@ -21,7 +21,6 @@ export class AuthGuard implements CanActivate {
                     return true;
                 }
                 if (state.url && !state.url.includes('auth')) {
-                    console.warn(state.url);
                     this.authService.setLastRoute(state.url);
                 }
                 // todo: hier ist die route fest hinterlegt obwohl das "auth" eigentlich aus der App selber kommt und
@@ -30,13 +29,6 @@ export class AuthGuard implements CanActivate {
                 return false;
             })
         );
-        /*
-        if (location.pathname && !location.pathname.includes('auth')) {
-            console.warn(state.url);
-            this.authService.setLastRoute(state.url);
-        }
-        this.router.navigate(['/auth/login']);
-        return false;*/
     }
 
 }

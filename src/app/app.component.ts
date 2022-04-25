@@ -3,6 +3,7 @@ import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { tap } from 'rxjs';
 import { AuthService } from './auth/auth.service';
+import { Router } from '@angular/router';
 
 @UntilDestroy()
 @Component({
@@ -15,7 +16,7 @@ export class AppComponent implements OnInit {
     isMobile = false;
     isAuthenticated = false;
 
-    constructor(public mediaObserver: MediaObserver, private authService: AuthService) {
+    constructor(public mediaObserver: MediaObserver, private authService: AuthService, private router: Router) {
     }
 
     ngOnInit() {
@@ -28,5 +29,11 @@ export class AppComponent implements OnInit {
             untilDestroyed(this),
             tap(user => this.isAuthenticated = !!(user && user.emailVerified))
         ).subscribe();
+    }
+
+    logout() {
+        this.authService.signOut().subscribe({
+            complete: () => this.router.navigate(['auth', 'login'])
+        });
     }
 }

@@ -4,12 +4,24 @@
             <button mat-icon-button (click)="sideNav.toggle()" ><mat-icon>menu</mat-icon></button>
             <h1 i18n>Universal Standard App</h1>
             <div fxFlex="1 1 auto"></div>
-            <button mat-icon-button *ngIf="isAuthenticated"><mat-icon>account_circle</mat-icon></button>
+            <button mat-icon-button *ngIf="isAuthenticated" [matMenuTriggerFor]="userMenu">
+                <mat-icon>account_circle</mat-icon>
+            </button>
+            <mat-menu #userMenu="matMenu">
+                <a mat-menu-item routerLink="profile">
+                    <mat-icon>contact_page</mat-icon>
+                    <span i18n>Profil</span>
+                </a>
+                <button mat-menu-item (click)="logout()">
+                    <mat-icon>logout</mat-icon>
+                    <span i18n>Abmelden</span>
+                </button>
+            </mat-menu>
         </mat-toolbar>
         <mat-sidenav-container class="sidenav-container" fxFlex fxFlex.xs="1 0 auto">
             <mat-sidenav #sideNav [mode]="isMobile ? 'over' : 'side'" [fixedInViewport]="isMobile" fixedTopGap="56">
                 <mat-nav-list>
-                    <a mat-list-item routerLink="home" i18n>Startseite</a>
+                    <a mat-list-item routerLink="home" (mouseup)="sideNav.close()" i18n>Startseite</a>
                 </mat-nav-list>
             </mat-sidenav>
             <mat-sidenav-content class="main-content">

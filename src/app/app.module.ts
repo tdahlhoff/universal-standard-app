@@ -8,7 +8,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { AuthModule } from './auth/auth.module';
-import { LayoutComponent } from './components/layout/layout.component';
 import { HomeComponent } from './components/home/home.component';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MaterialUiModule } from './material-ui/material-ui.module';
@@ -19,7 +18,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     declarations: [
         AppComponent,
         PageNotFoundComponent,
-        LayoutComponent,
         HomeComponent
     ],
     imports: [

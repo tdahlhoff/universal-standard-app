@@ -1,31 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { AuthModule } from './auth/auth.module';
-import { LayoutComponent } from './components/layout/layout.component';
 import { AuthGuard } from './auth/auth.guard';
 import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
     {
+        path: 'home',
+        component: HomeComponent
+    },
+    {
         path: 'auth',
-        loadChildren: () => AuthModule
+        loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
     },
     {
         path: '',
-        component: LayoutComponent,
         canActivate: [AuthGuard],
-        children: [
-            {
-                path: '',
-                redirectTo: 'home',
-                pathMatch: 'full'
-            },
-            {
-                path: 'home',
-                component: HomeComponent
-            }
-        ]
+        loadChildren: () => import('./secured/secured.module').then(m => m.SecuredModule)
     },
     {
         path: '**',

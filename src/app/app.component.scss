@@ -38,3 +38,7 @@ mat-sidenav {
 .main-content > div {
     padding: 16px;
 }
+
+button.mat-menu-item {
+    text-transform: capitalize;
+}

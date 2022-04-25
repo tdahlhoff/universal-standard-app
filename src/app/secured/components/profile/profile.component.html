@@ -1,0 +1,14 @@
+<h1 i18n>Profil</h1>
+<p>Dein Nutzer-Profil.</p>
+<div *ngIf="authService.user | async as user">
+    <div i18n>Angezeigter Name</div>
+    <div *ngIf="!!user.displayName">{{user.displayName}}</div>
+    <div *ngIf="!user.displayName">
+        <span i18n>Kein Name</span>
+        <button mat-icon-button (click)="setDisplayName()">
+            <mat-icon>edit</mat-icon>
+        </button>
+    </div>
+    <div i18n>Deine E-Mail</div>
+    <div>{{user.email}}</div>
+</div>

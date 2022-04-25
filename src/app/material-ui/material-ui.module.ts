@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { MatListModule } from '@angular/material/list';
         MatIconModule,
         MatSnackBarModule,
         MatToolbarModule,
-        MatListModule
+        MatListModule,
+        MatMenuModule
     ]
 })
 export class MaterialUiModule {

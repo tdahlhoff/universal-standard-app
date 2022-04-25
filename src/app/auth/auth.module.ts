@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AuthRoutingModule } from './auth-routing.module';
-import { AuthComponent } from './auth.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -17,7 +16,6 @@ import { ResetPasswordEmailSentComponent } from './components/reset-password-ema
 
 @NgModule({
     declarations: [
-        AuthComponent,
         LoginComponent,
         RegisterComponent,
         ResetPasswordComponent,

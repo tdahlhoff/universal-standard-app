@@ -8,7 +8,6 @@ import { from, Observable } from 'rxjs';
 })
 export class AuthService {
 
-    private _lastRoute: string | null = null;
     user: Observable<firebase.User | null>;
 
     constructor(public angularFireAuth: AngularFireAuth) {
@@ -16,7 +15,7 @@ export class AuthService {
     }
 
     get lastRoute() {
-        return this._lastRoute;
+        return sessionStorage.getItem('last-route');
     }
 
     init(): Promise<any> {
@@ -48,6 +47,6 @@ export class AuthService {
     }
 
     setLastRoute(route: string) {
-        this._lastRoute = route;
+        sessionStorage.setItem('last-route', route);
     }
 }
