@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from '../../auth.service';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { take, tap } from 'rxjs';
@@ -10,12 +10,9 @@ import { ActivatedRoute, Router } from '@angular/router';
     templateUrl: './awaiting-email-confirmation.component.html',
     styleUrls: ['./awaiting-email-confirmation.component.scss']
 })
-export class AwaitingEmailConfirmationComponent implements OnInit {
+export class AwaitingEmailConfirmationComponent {
 
     constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) {
-    }
-
-    ngOnInit(): void {
     }
 
     resendVerificationEmail() {

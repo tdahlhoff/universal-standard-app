@@ -1,10 +1,15 @@
-<h1>E-Mail muss noch verifiziert werden</h1>
-<p i18n>Dir wurde eine E-Mail mit einem Bestätigungs-Link zugeschickt. Erst nachdem du diesen Link aufgerufen hast,
-    ist dein Account endgültig freigegeben.</p>
-<p i18n>Du hast keine E-Mail erhalten? Vergewissere Dich, dass die E-Mail nicht in deinem Spam-Ordner gelandet ist.
-    Falls wirklich keine E-Mail angekommen ist, kannst Du die Bestätigungs-Mail hier erneut anfordern.</p>
-<div fxLayoutGap="16px" fxLayout="row" fxLayout.xs="column">
-    <button mat-raised-button color="primary" (click)="resendVerificationEmail()">Bestätigungs-Link erneut zusenden</button>
-    <button mat-raised-button (click)="loginOtherAccount()">Mit anderem Benutzer anmelden</button>
-</div>
-
+<mat-card [ngClass.xs]="'card-zero'">
+    <mat-card-title i18n>E-Mail muss noch verifiziert werden</mat-card-title>
+    <mat-card-content>
+        <p i18n>Dir wurde eine E-Mail mit einem Bestätigungs-Link zugeschickt. Erst nachdem du diesen Link aufgerufen hast,
+            ist dein Account endgültig freigegeben.</p>
+        <p i18n>Du hast keine E-Mail erhalten? Vergewissere Dich, dass die E-Mail nicht in deinem Spam-Ordner gelandet ist.
+            Falls wirklich keine E-Mail angekommen ist, kannst Du die Bestätigungs-Mail hier erneut anfordern.</p>
+        <div class="button-margin" fxLayoutGap="16px" fxLayout="row" fxLayout.lt-md="column"
+            ngClass.xs="smaller-button-font">
+            <button mat-raised-button color="primary" (click)="resendVerificationEmail()">
+                Bestätigungs-Link erneut zusenden</button>
+            <button mat-raised-button (click)="loginOtherAccount()">Mit anderem Benutzer anmelden</button>
+        </div>
+    </mat-card-content>
+</mat-card>

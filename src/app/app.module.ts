@@ -13,6 +13,7 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MaterialUiModule } from './material-ui/material-ui.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { LayoutService } from './services/layout-service';
 
 @NgModule({
     declarations: [
@@ -31,7 +32,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         FlexLayoutModule
     ],
     providers: [
-        {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}}
+        {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}},
+        LayoutService
     ],
     bootstrap: [AppComponent]
 })

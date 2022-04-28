@@ -4,6 +4,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { tap } from 'rxjs';
 import { AuthService } from './auth/auth.service';
 import { Router } from '@angular/router';
+import { LayoutService } from './services/layout-service';
 
 @UntilDestroy()
 @Component({
@@ -16,7 +17,8 @@ export class AppComponent implements OnInit {
     isMobile = false;
     isAuthenticated = false;
 
-    constructor(public mediaObserver: MediaObserver, private authService: AuthService, private router: Router) {
+    constructor(public mediaObserver: MediaObserver, private authService: AuthService, private router: Router,
+        private layoutService: LayoutService) {
     }
 
     ngOnInit() {
@@ -35,5 +37,19 @@ export class AppComponent implements OnInit {
         this.authService.signOut().subscribe({
             complete: () => this.router.navigate(['auth', 'login'])
         });
+    }
+
+    get fxLayoutAlign(): string {
+        if (this.layoutService.contentAlignment == 'centered') {
+            if (this.isMobile) {
+                return 'center start';
+            }
+            return 'center center';
+        }
+        return 'start stretch';
+    }
+
+    get showMenuButton(): boolean {
+        return this.isAuthenticated;
     }
 }

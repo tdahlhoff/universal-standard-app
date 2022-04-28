@@ -1,8 +1,9 @@
 <div class="background-container" fxLayout="row" fxLayoutAlign="center">
     <div class="app-container" ngClass.xs="is-mobile">
         <mat-toolbar class="toolbar" color="primary" fxLayoutGap="8px">
-            <button mat-icon-button (click)="sideNav.toggle()" ><mat-icon>menu</mat-icon></button>
-            <h1 i18n>Universal Standard App</h1>
+            <button mat-icon-button (click)="sideNav.toggle()" *ngIf="showMenuButton">
+                <mat-icon>menu</mat-icon></button>
+            <h1 ngClass.xs="smaller-font" i18n>Universal Standard App</h1>
             <div fxFlex="1 1 auto"></div>
             <button mat-icon-button *ngIf="isAuthenticated" [matMenuTriggerFor]="userMenu">
                 <mat-icon>account_circle</mat-icon>
@@ -25,7 +26,7 @@
                 </mat-nav-list>
             </mat-sidenav>
             <mat-sidenav-content class="main-content">
-                <div>
+                <div fxLayoutAlign.gt-xs="row" [fxLayoutAlign.gt-xs]="fxLayoutAlign">
                     <router-outlet></router-outlet>
                 </div>
             </mat-sidenav-content>

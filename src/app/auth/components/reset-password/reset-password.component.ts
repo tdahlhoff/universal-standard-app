@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { BaseFormComponent } from '../../../shared/components/base-form-component/base-form-component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import firebase from 'firebase/compat';
-import FirebaseError = firebase.FirebaseError;
 import { ActivatedRoute, Router } from '@angular/router';
+import FirebaseError = firebase.FirebaseError;
 
 export type ViewElement = 'form' | 'summary';
 

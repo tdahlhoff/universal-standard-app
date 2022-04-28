@@ -23,10 +23,6 @@
     z-index: 2;
 }
 
-.sidenav-container {
-
-}
-
 .is-mobile .sidenav-container {
     margin-top: 56px;
 }
@@ -35,10 +31,28 @@ mat-sidenav {
     width: 200px;
 }
 
+.main-content {
+    height: 100%;
+}
+
 .main-content > div {
+    box-sizing: border-box;
+    height: 100%;
     padding: 16px;
 }
 
 button.mat-menu-item {
     text-transform: capitalize;
+}
+
+.mat-toolbar button:first-child {
+    margin-left: -8px;
+}
+
+.mat-toolbar button:last-of-type {
+    margin-right: -8px;
+}
+
+h1.smaller-font {
+    font-size: 0.96em;
 }
