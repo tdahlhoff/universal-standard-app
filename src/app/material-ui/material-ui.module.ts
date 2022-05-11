@@ -12,6 +12,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTableModule } from '@angular/material/table';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { MatMenuModule } from '@angular/material/menu';
         MatSnackBarModule,
         MatToolbarModule,
         MatListModule,
-        MatMenuModule
+        MatMenuModule,
+        MatTableModule
     ]
 })
 export class MaterialUiModule {

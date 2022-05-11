@@ -14,6 +14,8 @@ import { MaterialUiModule } from './material-ui/material-ui.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { LayoutService } from './services/layout-service';
+import { NgxsModule } from '@ngxs/store';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 
 @NgModule({
     declarations: [
@@ -26,6 +28,10 @@ import { LayoutService } from './services/layout-service';
         BrowserAnimationsModule,
         AppRoutingModule,
         AngularFireModule.initializeApp(environment.firebase),
+        NgxsModule.forRoot([], {
+            developmentMode: !environment.production
+        }),
+        NgxsReduxDevtoolsPluginModule.forRoot(),
         AuthModule,
         MaterialUiModule,
         MatSidenavModule,

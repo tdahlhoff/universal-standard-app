@@ -1,0 +1,17 @@
+<p>universal-list works!</p>
+<div *ngIf="universalList$ | async as universalLists" fxLayout="row wrap" fxLayoutGap="16px" fxLayout.xs="column"
+    class="card-container" ngClass.gt-xs="large-screen">
+    <mat-card *ngFor="let universalList of universalLists" ngClass.gt-xs="in-a-row" fxFlex="0 0 calc(100%/3 - 16px)">
+        <mat-card-title>{{universalList.name}}</mat-card-title>
+        <table mat-table [dataSource]="universalList.listItems">
+            <ng-container matColumnDef="text">
+                <th mat-header-cell *matHeaderCellDef i18n>Artikel</th>
+                <td mat-cell *matCellDef="let listItem"> {{listItem.text}} </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </mat-card>
+</div>
+
+

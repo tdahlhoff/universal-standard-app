@@ -39,14 +39,15 @@ export class AppComponent implements OnInit {
         });
     }
 
+    get layoutCentered(): boolean {
+        return this.layoutService.contentAlignment == 'centered';
+    }
+
     get fxLayoutAlign(): string {
-        if (this.layoutService.contentAlignment == 'centered') {
-            if (this.isMobile) {
-                return 'center start';
-            }
-            return 'center center';
+        if (this.isMobile) {
+            return 'center start';
         }
-        return 'start stretch';
+        return 'center center';
     }
 
     get showMenuButton(): boolean {

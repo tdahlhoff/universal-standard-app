@@ -9,31 +9,38 @@ import {
 import {
     ResetPasswordEmailSentComponent
 } from './components/reset-password-email-sent/reset-password-email-sent.component';
+import { AuthComponent } from './auth.component';
 
 const routes: Routes = [
     {
-        path: 'login',
-        component: LoginComponent
-    },
-    {
-        path: 'register',
-        component: RegisterComponent
-    },
-    {
-        path: 'reset-password',
-        component: ResetPasswordComponent
-    },
-    {
-        path: 'reset-password-email-sent',
-        component: ResetPasswordEmailSentComponent
-    },
-    {
-        path: 'awaiting-email-confirmation',
-        component: AwaitingEmailConfirmationComponent
-    },
-    {
-        path: '**',
-        redirectTo: 'login'
+        path: '',
+        component: AuthComponent,
+        children: [
+            {
+                path: 'login',
+                component: LoginComponent
+            },
+            {
+                path: 'register',
+                component: RegisterComponent
+            },
+            {
+                path: 'reset-password',
+                component: ResetPasswordComponent
+            },
+            {
+                path: 'reset-password-email-sent',
+                component: ResetPasswordEmailSentComponent
+            },
+            {
+                path: 'awaiting-email-confirmation',
+                component: AwaitingEmailConfirmationComponent
+            },
+            {
+                path: '**',
+                redirectTo: 'login'
+            }
+        ]
     }
 ];
 

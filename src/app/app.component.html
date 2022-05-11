@@ -26,7 +26,10 @@
                 </mat-nav-list>
             </mat-sidenav>
             <mat-sidenav-content class="main-content">
-                <div fxLayoutAlign.gt-xs="row" [fxLayoutAlign.gt-xs]="fxLayoutAlign">
+                <div *ngIf="layoutCentered" [fxLayoutAlign.gt-xs]="fxLayoutAlign">
+                    <router-outlet></router-outlet>
+                </div>
+                <div *ngIf="!layoutCentered">
                     <router-outlet></router-outlet>
                 </div>
             </mat-sidenav-content>

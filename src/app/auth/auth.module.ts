@@ -12,10 +12,12 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { MaterialUiModule } from '../material-ui/material-ui.module';
 import { AwaitingEmailConfirmationComponent } from './components/awaiting-email-confirmation/awaiting-email-confirmation.component';
 import { ResetPasswordEmailSentComponent } from './components/reset-password-email-sent/reset-password-email-sent.component';
+import { AuthComponent } from './auth.component';
 
 
 @NgModule({
     declarations: [
+        AuthComponent,
         LoginComponent,
         RegisterComponent,
         ResetPasswordComponent,
