@@ -3,11 +3,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../auth.service';
 import { BaseFormComponent } from '../../../shared/components/base-form-component/base-form-component';
 import { passwordStrengthValidator, valuesMatchValidator } from '../../../shared/validators/validators';
-import firebase from 'firebase/compat';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import FirebaseError = firebase.FirebaseError;
-import UserCredential = firebase.auth.UserCredential;
+import { UserCredential } from '@angular/fire/auth';
+import { FirebaseError } from '@firebase/util';
+
 
 @Component({
     selector: 'app-register',
@@ -40,8 +40,9 @@ export class RegisterComponent extends BaseFormComponent implements OnInit {
             ).subscribe({
                 next: (userCredential: UserCredential) => {
                     if (userCredential.user) {
-                        userCredential.user.sendEmailVerification().then(() => {
-                            this.router.navigate(['..', 'awaiting-email-confirmation'], { relativeTo: this.route });
+                        this.authService.sendEmailVerification(userCredential.user).subscribe({
+                            complete: () => this.router.navigate(['..', 'awaiting-email-confirmation'],
+                                { relativeTo: this.route })
                         });
                     }
                 },

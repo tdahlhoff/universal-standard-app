@@ -5,6 +5,8 @@ import { tap } from 'rxjs';
 import { AuthService } from './auth/auth.service';
 import { Router } from '@angular/router';
 import { LayoutService } from './services/layout-service';
+import { Store } from '@ngxs/store';
+import { UniversalListActions } from './secured/store/universal-list/universal-list.actions';
 
 @UntilDestroy()
 @Component({
@@ -18,7 +20,7 @@ export class AppComponent implements OnInit {
     isAuthenticated = false;
 
     constructor(public mediaObserver: MediaObserver, private authService: AuthService, private router: Router,
-        private layoutService: LayoutService) {
+        private layoutService: LayoutService, private store: Store) {
     }
 
     ngOnInit() {
@@ -29,7 +31,12 @@ export class AppComponent implements OnInit {
 
         this.authService.user.pipe(
             untilDestroyed(this),
-            tap(user => this.isAuthenticated = !!(user && user.emailVerified))
+            tap(user => {
+                this.isAuthenticated = !!(user && user.emailVerified);
+                if (this.isAuthenticated) {
+                    this.store.dispatch(new UniversalListActions.FetchAll());
+                }
+            })
         ).subscribe();
     }
 

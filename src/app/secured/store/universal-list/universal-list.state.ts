@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { UniversalListActions } from './universal-list.actions';
 import { UniversalList } from '../../model/universal-list';
+import { Firestore, getDocs, query, collection, orderBy, limit, where } from '@angular/fire/firestore';
+import { from, tap } from 'rxjs';
+import { AuthService } from '../../../auth/auth.service';
 
 export class UniversalListStateModel {
     public items: UniversalList[] = [];
@@ -21,8 +24,11 @@ export class UniversalListStateModel {
                     { text: 'Schnitzel' },
                     { text: 'Pommes' },
                     { text: 'Erbsen & Möhren' },
-                    { text: 'Mayo' },
-                ]
+                    { text: 'Mayo' }
+                ],
+                roles: {
+                    fSo2X3Dx8dedbZiBDy9IOQ11VsQ2: 'owner'
+                }
             }, {
                 id: '7a173f67-813b-4877-9174-fcd29d4ccf03',
                 type: 'shopping',
@@ -38,7 +44,10 @@ export class UniversalListStateModel {
                     { text: '4 Joghurt' },
                     { text: '2 Flaschen Mineralwasser' },
                     { text: 'Spülmittel' }
-                ]
+                ],
+                roles: {
+                    fSo2X3Dx8dedbZiBDy9IOQ11VsQ2: 'owner'
+                }
             }, {
                 id: '7a173f67-813b-4877-9174-fcd29d4ccf03',
                 type: 'shopping',
@@ -48,7 +57,10 @@ export class UniversalListStateModel {
                 listItems: [
                     { text: 'Kasten Erdinger Alkoholfrei' },
                     { text: '6L Milch' }
-                ]
+                ],
+                roles: {
+                    fSo2X3Dx8dedbZiBDy9IOQ11VsQ2: 'owner'
+                }
             }, {
                 id: '7a173f67-813b-4877-9174-fcd29d4ccf03',
                 type: 'shopping',
@@ -58,7 +70,10 @@ export class UniversalListStateModel {
                 listItems: [
                     { text: 'Kasten Erdinger Alkoholfrei' },
                     { text: '6L Milch' }
-                ]
+                ],
+                roles: {
+                    fSo2X3Dx8dedbZiBDy9IOQ11VsQ2: 'owner'
+                }
             }
         ]
     }
@@ -71,6 +86,9 @@ export class UniversalListState {
         return state.items;
     }
 
+    constructor(private firestore: Firestore, private authService: AuthService) {
+    }
+
     @Action(UniversalListActions.Add)
     add({ getState, setState }: StateContext<UniversalListStateModel>, { payload }: UniversalListActions.Add) {
         const state = getState();
@@ -78,8 +96,21 @@ export class UniversalListState {
     }
 
     @Action(UniversalListActions.FetchAll)
-    fetchAll({ getState, setState }: StateContext<UniversalListStateModel>) {
-        const state = getState();
-        setState({ items: [] });
+    fetchAll({ patchState }: StateContext<UniversalListStateModel>) {
+        const q = query(collection(this.firestore, 'universalLists'),
+            where('roles.readers', 'array-contains', this.authService.currentUser?.uid),
+            orderBy('lastEdited', 'desc'),
+            limit(10)
+        );
+        return from(getDocs(q)).pipe(
+            tap((querySnapshot) => {
+                const universalLists = querySnapshot.docs.map(doc => {
+                    console.warn(doc.data());
+                    return doc.data() as unknown as UniversalList
+                });
+                console.warn(universalLists);
+                patchState({ items: universalLists });
+            })
+        );
     }
 }

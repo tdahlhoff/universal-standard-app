@@ -11,7 +11,7 @@ export class AuthGuard implements CanActivate {
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-        return this.authService.angularFireAuth.user.pipe(
+        return this.authService.user.pipe(
             map(user => {
                 if (user) {
                     if (!user.emailVerified) {

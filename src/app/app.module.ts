@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
-import { AngularFireModule } from '@angular/fire/compat';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
@@ -18,6 +17,9 @@ import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 
 import '@angular/common/locales/global/de';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getAuth, provideAuth } from '@angular/fire/auth';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 
 @NgModule({
     declarations: [
@@ -29,7 +31,9 @@ import '@angular/common/locales/global/de';
         BrowserModule,
         BrowserAnimationsModule,
         AppRoutingModule,
-        AngularFireModule.initializeApp(environment.firebase),
+        provideFirebaseApp(() => initializeApp(environment.firebase)),
+        provideAuth(() => getAuth()),
+        provideFirestore(() => getFirestore()),
         NgxsModule.forRoot([], {
             developmentMode: !environment.production
         }),
@@ -42,7 +46,7 @@ import '@angular/common/locales/global/de';
     providers: [
         { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 3000 } },
         LayoutService,
-        {provide: LOCALE_ID, useValue: 'de' }
+        { provide: LOCALE_ID, useValue: 'de' }
     ],
     bootstrap: [AppComponent]
 })

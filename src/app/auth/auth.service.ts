@@ -1,17 +1,36 @@
-import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import firebase from 'firebase/compat/app';
-import { from, Observable } from 'rxjs';
+import { Injectable, Optional } from '@angular/core';
+import { EMPTY, from, Observable } from 'rxjs';
+import {
+    Auth,
+    authState,
+    confirmPasswordReset,
+    createUserWithEmailAndPassword,
+    GoogleAuthProvider,
+    sendEmailVerification,
+    sendPasswordResetEmail,
+    signInWithEmailAndPassword,
+    signInWithPopup,
+    signOut,
+    User,
+    UserCredential
+} from '@angular/fire/auth';
+
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
 
-    user: Observable<firebase.User | null>;
+    readonly user: Observable<User | null> = EMPTY;
 
-    constructor(public angularFireAuth: AngularFireAuth) {
-        this.user = angularFireAuth.authState;
+    constructor(@Optional() private auth: Auth) {
+        if (auth) {
+            this.user = authState(this.auth);
+        }
+    }
+
+    get currentUser() {
+        return this.auth.currentUser;
     }
 
     get lastRoute() {
@@ -23,30 +42,34 @@ export class AuthService {
     }
 
     confirmPasswordReset(code: string, password: string): Observable<any> {
-        return from(this.angularFireAuth.confirmPasswordReset(code, password));
+        return from(confirmPasswordReset(this.auth, code, password));
     }
 
-    register(email: string, password: string): Observable<firebase.auth.UserCredential> {
-        return from(this.angularFireAuth.createUserWithEmailAndPassword(email, password));
+    register(email: string, password: string): Observable<UserCredential> {
+        return from(createUserWithEmailAndPassword(this.auth, email, password));
     }
 
     sendPasswordResetEmail(email: string): Observable<void> {
-        return from(this.angularFireAuth.sendPasswordResetEmail(email));
+        return from(sendPasswordResetEmail(this.auth, email));
     }
 
-    signIn(email: string, password: string): Observable<firebase.auth.UserCredential> {
-        return from(this.angularFireAuth.signInWithEmailAndPassword(email, password));
+    signIn(email: string, password: string): Observable<UserCredential> {
+        return from(signInWithEmailAndPassword(this.auth, email, password));
     }
 
-    signInWithGoogle(): Observable<firebase.auth.UserCredential> {
-        return from(this.angularFireAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider()));
+    signInWithGoogle(): Observable<UserCredential> {
+        return from(signInWithPopup(this.auth, new GoogleAuthProvider()));
     }
 
     signOut(): Observable<void> {
-        return from(this.angularFireAuth.signOut());
+        return from(signOut(this.auth));
     }
 
     setLastRoute(route: string) {
         sessionStorage.setItem('last-route', route);
+    }
+
+    sendEmailVerification(user: User) {
+        return from(sendEmailVerification(user));
     }
 }

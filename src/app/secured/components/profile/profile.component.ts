@@ -3,6 +3,7 @@ import { AuthService } from '../../../auth/auth.service';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { filter, from, switchMap, take } from 'rxjs';
 import { isNonNull } from '../../../shared/rxjs-additions';
+import { updateProfile } from '@angular/fire/auth';
 
 @UntilDestroy()
 @Component({
@@ -24,7 +25,7 @@ export class ProfileComponent implements OnInit {
             filter(isNonNull),
             take(1),
             switchMap(user => {
-                return from(user.updateProfile({ displayName: 'Timo SiSa Syco' }));
+                return from(updateProfile(user, { displayName: 'Timo SiSa Syco' }));
             })
         ).subscribe();
     }
