@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -16,6 +16,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { LayoutService } from './services/layout-service';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+
+import '@angular/common/locales/global/de';
 
 @NgModule({
     declarations: [
@@ -38,8 +40,9 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
         FlexLayoutModule
     ],
     providers: [
-        {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}},
-        LayoutService
+        { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 3000 } },
+        LayoutService,
+        {provide: LOCALE_ID, useValue: 'de' }
     ],
     bootstrap: [AppComponent]
 })

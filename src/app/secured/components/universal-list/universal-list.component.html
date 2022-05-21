@@ -1,17 +1,29 @@
-<p>universal-list works!</p>
+<h1 i18n>Deine Listen</h1>
+<p i18n>Hier siehst du alle Listen auf die Du Zugriff hast. Dabei handelt es sich um Listen die von Dir erstellt wurden,
+    oder Listen von jemand anderem der Dich als Leser oder Bearbeiter seiner Liste hinzugefügt hat.</p>
 <div *ngIf="universalList$ | async as universalLists" fxLayout="row wrap" fxLayoutGap="16px" fxLayout.xs="column"
-    class="card-container" ngClass.gt-xs="large-screen">
+    class="card-container" ngClass.gt-xs="large-screen" fxLayoutAlign=" start" fxLayoutAlign.xs=" stretch">
+    <p *ngIf="universalLists.length === 0" i18n>Noch keine Listen vorhanden. Erstelle eine neue Liste über den
+        Plus-Button</p>
     <mat-card *ngFor="let universalList of universalLists" ngClass.gt-xs="in-a-row" fxFlex="0 0 calc(100%/3 - 16px)">
         <mat-card-title>{{universalList.name}}</mat-card-title>
-        <table mat-table [dataSource]="universalList.listItems">
-            <ng-container matColumnDef="text">
-                <th mat-header-cell *matHeaderCellDef i18n>Artikel</th>
-                <td mat-cell *matCellDef="let listItem"> {{listItem.text}} </td>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
+        <mat-card-subtitle>{{universalList.lastEdited | date:'medium'}}</mat-card-subtitle>
+        <mat-card-content>
+            <table mat-table [dataSource]="getFirstListItems(universalList.listItems)">
+                <ng-container matColumnDef="text">
+                    <th mat-header-cell *matHeaderCellDef i18n>Artikel</th>
+                    <td mat-cell *matCellDef="let listItem"> {{listItem.text}} </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </mat-card-content>
+        <mat-card-actions fxLayoutGap="4px" fxLayoutAlign="end">
+            <button mat-icon-button color="primary" i18n-title title="Diese Liste anzeigen/bearbeiten"
+                (click)="showList(universalList)"><mat-icon>edit_note</mat-icon></button>
+            <button mat-icon-button color="primary" i18n-title title="Diese Liste löschen"
+                (click)="deleteList(universalList)"><mat-icon>delete</mat-icon></button>
+        </mat-card-actions>
     </mat-card>
 </div>
-
-
+<app-floating-button (onClick)="addNewList()"></app-floating-button>

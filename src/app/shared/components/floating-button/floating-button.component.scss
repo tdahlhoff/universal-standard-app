@@ -1,0 +1,17 @@
+.floating-button {
+    position: sticky;
+    bottom: 16px;
+    float: right;
+    z-index: 1000;
+}
+.floating-button.lt-md {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+}
+.button-spacing {
+    height: 56px;
+}
+.button-spacing.hidden {
+    display: none;
+}

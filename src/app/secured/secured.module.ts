@@ -9,6 +9,7 @@ import { NgxsModule } from '@ngxs/store';
 import { UniversalListState } from './store/universal-list/universal-list.state';
 import { UniversalListComponent } from './components/universal-list/universal-list.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { SharedModule } from '../shared';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         SecuredRoutingModule,
         NgxsModule.forFeature([UniversalListState]),
         MaterialUiModule,
-        FlexLayoutModule
+        FlexLayoutModule,
+        SharedModule
     ]
 })
 export class SecuredModule {
