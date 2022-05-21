@@ -30,9 +30,13 @@ export class UniversalListComponent implements OnInit {
     }
 
     getFirstListItems(listItems: UniversalListItem[]): UniversalListItem[] {
-        const reducedListItems = listItems.slice(0, 3);
-        if (listItems.length > 3) {
-            reducedListItems.push({ text: '...' });
+        let reducedListItems;
+        if (listItems.length > 4) {
+            reducedListItems = listItems.slice(0, 3);
+            const remainingNumberOfItems = listItems.length - 3;
+            reducedListItems.push({ text: $localize`... ${remainingNumberOfItems} weitere` });
+        } else {
+            reducedListItems = listItems.slice(0, 4);
         }
         while (reducedListItems.length < 4) {
             reducedListItems.push({ text: '' });

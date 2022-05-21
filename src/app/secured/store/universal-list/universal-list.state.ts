@@ -19,7 +19,9 @@ export class UniversalListStateModel {
                 lastEdited: '2022-05-19 15:32:43',
                 listItems: [
                     { text: 'Schnitzel' },
-                    { text: 'Pommes' }
+                    { text: 'Pommes' },
+                    { text: 'Erbsen & Möhren' },
+                    { text: 'Mayo' },
                 ]
             }, {
                 id: '7a173f67-813b-4877-9174-fcd29d4ccf03',
